@@ -1,0 +1,17 @@
+{
+  "name": "mern-template",
+  "version": "0.0.1",
+  "description": "Base Project to be used as a template to start MERN projects",
+  "main": "index.ts",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juannadin/mern-template.git"
+  },
+  "author": "Juan Ignacio Nadin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juannadin/mern-template/issues"
+  },
+  "homepage": "https://github.com/juannadin/mern-template#readme"
+}
