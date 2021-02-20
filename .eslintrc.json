@@ -1,0 +1,49 @@
+
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "airbnb",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "max-len": ["warn", 120, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false,
+      "ignoreStrings": true
+    }],
+    "spaced-comment": ["error", "always", { "markers": ["/"] }],
+    "no-unused-expressions": "off",
+    "react/prop-types": "off",
+    "import/no-commonjs": "error",
+    "import/extensions": ["error", {
+      "json": "always",
+      "scss": "always"
+    }],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-unused-expressions": ["error"]
+  },
+  "overrides": [
+    {
+      "files":[
+        "jest.config.js",
+        "webpack.config.js",
+        "config/*.js",
+        "tests/e2e/cypress/**/*.js"
+      ],
+      "rules": {
+        "import/no-commonjs": "off",
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "build",
+    "build-server"
+  ]
+}
