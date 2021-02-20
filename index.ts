@@ -1,15 +1,9 @@
-import express from 'express';
+import Server from './server';
 
-import appRoute from './app/server/index';
-import apiRoute from './api/index';
+import appRouter from './app/routes/index';
+import apiRouter from './api/index';
 
-const app = express();
-const {
-  PORT = 3000,
-} = process.env;
-
-app.use(appRoute);
-app.use('/api', apiRoute);
-app.listen(PORT, () => {
-  console.log(`server started at http://localhost:${PORT}`);
+export default new Server({
+  apiRouter,
+  appRouter,
 });
