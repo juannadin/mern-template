@@ -11,7 +11,8 @@ import express, {
 } from 'express';
 
 import env from './env';
-import middlewares from './middlewares';
+import middlewares, { Middlewares } from './middlewares';
+import { ServerConfig } from '../config/types';
 
 const numCPUs = os.cpus().length;
 
@@ -24,16 +25,20 @@ type ServerConstructor = {
  * Server Class
  */
 class Server {
-  config: any;
+  config: ServerConfig;
 
   app: Express;
 
   server: any;
 
+  middlewares: Middlewares;
+
   constructor({ apiRouter, appRouter }: ServerConstructor) {
     this.config = config.get('server');
 
     this.app = express();
+
+    this.middlewares = middlewares(this.config);
 
     /**
      * Set express trust proxy
@@ -53,9 +58,9 @@ class Server {
 
       this.app.use(
         apiRoute,
-        middlewares.api.before,
+        this.middlewares.api.before,
         apiRouter,
-        middlewares.api.after,
+        this.middlewares.api.after,
       );
     }
 
@@ -72,9 +77,9 @@ class Server {
 
       this.app.use(
         this.config.basePath,
-        middlewares.app.before,
+        this.middlewares.app.before,
         appRouter,
-        middlewares.app.after,
+        this.middlewares.app.after,
       );
     }
 
@@ -92,7 +97,7 @@ class Server {
    * Start server
    */
   start(): Server {
-    const { port, host } = this.config.server;
+    const { port, host } = this.config;
     this.server = http.createServer(this.app).listen(port, host, () => {
       console.log(`App listening on port ${port}.`);
     });
@@ -131,7 +136,7 @@ class Server {
   /**
    * Stop server
    */
-  stop() {
+  stop(): Server {
     this.server.close();
     return this;
   }
@@ -139,7 +144,7 @@ class Server {
   /**
    * Use cluster to start server
    */
-  cluster() {
+  cluster(): Server {
     if (cluster.isMaster && env.DISABLE_NODEJS_CLUSTER !== 'true') {
       for (let i = 0; i < numCPUs; i += 1) {
         cluster.fork();
