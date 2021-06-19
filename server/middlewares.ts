@@ -5,6 +5,8 @@ import bodyParser from 'body-parser';
 import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
 
+import render from '../middlewares/render';
+
 import { ServerConfig } from '../config/types';
 
 export type Middlewares = {
@@ -39,6 +41,7 @@ const middlewares: MiddlewaresFunc = (config: ServerConfig) => ({
   app: {
     before: [
       ...sharedMiddlewares(config),
+      render,
     ],
     after: [],
   },

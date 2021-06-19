@@ -1,6 +1,9 @@
 {
   "verbose": false,
   "ignore": [
+    "mocks/**/*.json",
+    "reports/**/*",
+    "coverage/**/*",
     "*.log"
   ],
   "events": {

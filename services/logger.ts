@@ -1,6 +1,6 @@
 import winston, { Logger } from 'winston';
 
-const logger = (service: 'logger'): Logger => (winston.createLogger({
+const logger = (service = 'logger'): Logger => (winston.createLogger({
   level: 'info',
   format: winston.format.json(),
   defaultMeta: { service },
@@ -19,7 +19,7 @@ const logger = (service: 'logger'): Logger => (winston.createLogger({
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
 //
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
+  logger().add(new winston.transports.Console({
     format: winston.format.simple(),
   }));
 }

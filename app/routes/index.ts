@@ -1,11 +1,10 @@
 import express, { Request, Response } from 'express';
+import Layout from '../components/Layout';
 
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
-  res.send({
-    message: 'hello world',
-  });
+  res.reactRender(Layout, {});
 });
 
 export default router;
