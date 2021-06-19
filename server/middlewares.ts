@@ -1,7 +1,8 @@
-import { RequestHandler } from 'express';
+import {
+  urlencoded, json, raw, RequestHandler,
+} from 'express';
 import compression from 'compression';
 import helmet from 'helmet';
-import bodyParser from 'body-parser';
 import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
 
@@ -30,9 +31,9 @@ const sharedMiddlewares = (config: ServerConfig) => ([
       allow: true,
     },
   }),
-  bodyParser.urlencoded(config.bodyParser.urlencoded),
-  bodyParser.json(config.bodyParser.json),
-  bodyParser.raw(config.bodyParser.raw),
+  urlencoded(config.bodyParser.urlencoded),
+  json(config.bodyParser.json),
+  raw(config.bodyParser.raw),
   cookieParser(),
   hpp(),
 ]);

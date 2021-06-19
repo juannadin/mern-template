@@ -1,10 +1,8 @@
 import express, { Request, Response } from 'express';
-import Layout from '../components/Layout';
+import test from '../pages/test';
 
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
-  res.reactRender(Layout, {});
-});
+router.use('/', test);
 
 export default router;
